@@ -69,6 +69,19 @@ class PostController extends Controller
         // get all post
         $posts = post::all();
         $returnPosts = $posts->map(function ($post) {
+            $comment = DB::table('comment')->where('post_id', $post->id)->get();
+            $returnComment = $comment->map(function ($comment) {
+                return [
+                    'id' => $comment->id,
+                    'user_id' => $comment->user_id,
+                    'full_name' => DB::table('user')->where('id', $comment->user_id)->value('full_name'),
+                    'post_id' => $comment->post_id,
+                    'content' => $comment->content,
+                    'create_at' => $comment->create_at,
+                    'update_at' => $comment->update_at,
+                ];
+            });
+
             return [
                 'post_id' => $post->id,
                 'post_caption' => $post->caption,
@@ -80,7 +93,7 @@ class PostController extends Controller
                 'like' => $post->like,
                 'share' => $post->share,
                 'comment_count' => DB::table('comment')->where('post_id', $post->id)->count(),
-                'comment' => DB::table('comment')->where('post_id', $post->id)->get(),
+                'comment' => $returnComment,
             ];
         });
 
@@ -161,11 +174,10 @@ class PostController extends Controller
             // get userID from personal_access_tokens table
             $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
             $post = post::find($request->post_id);
-            if($post->like > 0){
+            if ($post->like > 0) {
                 $post->like = $post->like - 1;
                 $post->save();
-            }
-            else{
+            } else {
                 $post->like = 0;
                 $post->save();
             }
