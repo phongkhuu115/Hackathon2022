@@ -18,12 +18,13 @@ import '../../styles/Modal.css'
 function NewsFeed(props) {
 
 
-  function handleQuest(name, desc, reward, type) {
+  function handleQuest(id,name, desc, reward, type) {
     const quest = document.querySelectorAll('.quest')
     console.log(quest)
     for (let i = 0; i < quest.length; i++) {
       quest[i].classList.remove('hide')
     }
+    localStorage.setItem('currentMission', id);
 
     let icon;
     if (type === "on-going") {
@@ -62,7 +63,7 @@ function NewsFeed(props) {
     }, []);
     return mission.map(item => {
       return (
-        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
+        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.id,item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
       )
     })
   }
@@ -77,7 +78,7 @@ function NewsFeed(props) {
     }, []);
     return mission.map(item => {
       return (
-        <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={() => handleQuest(item.mission_name, item.mission_description, item.score_mission, "on-going")}> <img src={question} alt="" className='exclamation me-2' />{item.mission_name} </p>
+        <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={() => handleQuest(item.id,item.mission_name, item.mission_description, item.score_mission, "on-going")}> <img src={question} alt="" className='exclamation me-2' />{item.mission_name} </p>
       )
     })
   }
@@ -203,7 +204,7 @@ function NewsFeed(props) {
     }, []);
     return mission.map(item => {
       return (
-        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
+        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.id,item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
       )
     })
   }
@@ -265,6 +266,14 @@ function NewsFeed(props) {
     }
   }
 
+  function handleAccept(id) { 
+    let url = ""
+    let body = {
+      id: localStorage.getItem('currentMission')
+    }
+    PostAPIToken(url, body).then(res => { })
+  }
+
   return (
     <>
       <div className='newsfeed d-flex align-items-center'>
@@ -289,11 +298,6 @@ function NewsFeed(props) {
                 <Link className='my-2 text-primary viewall'>Xem tất cả</Link>
               </div>
               <RenderOnGoing></RenderOnGoing>
-              {/* <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ thụ</p>
-              <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ đại</p>
-              <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
-              <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
-              <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p> */}
             </div>
           </div>
           {/* Nhiệm vụ */}
@@ -340,7 +344,7 @@ function NewsFeed(props) {
               <p className='text-white m-5 bg-secondary p-3 rounded d-inline-block quest__reward'></p>
             </div>
             <div className='d-flex justify-content-end'>
-              <div className='text-end me-5 py-3 px-4 bg-secondary rounded text-white'>Nhận</div>
+              <div className='text-end me-5 py-3 px-4 bg-secondary rounded text-white' >Nhận</div>
             </div>
           </div>
         </div>

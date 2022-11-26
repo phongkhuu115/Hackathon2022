@@ -18,14 +18,14 @@ function LandingSection2(props) {
       <section id = 'section2' className='section2 d-flex py-5'>
         <div className="col text-center d-inline-block">
           <img src={Interact} alt=" " className='' />
-          <p className='fs-3 mt-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi natus ipsa quos alias cum temporibus repudiandae porro expedita ratione? Nesciunt dicta quibusdam consequuntur sed alias blanditiis, quidem quia delectus exercitationem.</p>
+          <p className='fs-3 mt-3'>Tương tác là điểm mạnh của một website, đặc biệt là website về mạng xã hội. Website này sẽ giúp việc tương tác với nhau sẽ trở nên đơn giản hơn thông qua việc cùng nhau thực hiện những việc làm bảo vệ môi trường.</p>
         </div>
         <div className="col text-center d-inline-block">
           <img src={Water} alt=" " />
         </div>
         <div className="col text-center d-inline-block">
           <img src={Point} alt=" " />
-          <p className='fs-3 mt-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi natus ipsa quos alias cum temporibus repudiandae porro expedita ratione? Nesciunt dicta quibusdam consequuntur sed alias blanditiis, quidem quia delectus exercitationem.</p>
+          <p className='fs-3 mt-3'>Hệ thống điểm sẽ kích thích tinh thần của người dùng, giúp mọi người sẽ cố gắng kiếm điểm để đổi những phần quà hấp dẫn đồng thời góp phần bảo vệ môi trường</p>
         </div>
       </section>
     </>

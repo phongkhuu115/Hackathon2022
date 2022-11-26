@@ -19,24 +19,28 @@ function LandingSection3(props) {
     <>
       <section id='section3' className='section3 d-flex text-center py-5'>
         <div className="col d-inline-block text-center">
-          <img src={contact1} alt="" className='contact__img'/>
+          <img src={contact1} alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Minh Phong</p>
-          <p className='fs-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos ullam iusto alias, sapiente dolorum. Saepe laudantium quidem, tempora id, sequi perferendis nam totam neque pariatur corrupti dignissimos vero! Officia.</p>
+          <p className='fs-3'>University of Infomation and Technology - VNUHCM
+            MMTT2020</p>
         </div>
         <div className="col d-inline-block text-center">
-          <img src={contact2} alt="" className='contact__img'/>
+          <img src={contact2} alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Anh Tài</p>
-          <p className='fs-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos ullam iusto alias, sapiente dolorum. Saepe laudantium quidem, tempora id, sequi perferendis nam totam neque pariatur corrupti dignissimos vero! Officia.</p>
+          <p className='fs-3'>University of Infomation and Technology - VNUHCM
+            MMTT2020</p>
         </div>
         <div className="col d-inline-block text-center">
-          <img src={contact3} alt="" className='contact__img'/>
+          <img src={contact3} alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Nhật Anh</p>
-          <p className='fs-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos ullam iusto alias, sapiente dolorum. Saepe laudantium quidem, tempora id, sequi perferendis nam totam neque pariatur corrupti dignissimos vero! Officia.</p>
+          <p className='fs-3'>University of Infomation and Technology - VNUHCM
+            MMTT2020</p>
         </div>
         <div className="col d-inline-block text-center">
-          <img src={contact4} alt="" className='contact__img'/>
+          <img src={contact4} alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Đức Anh</p>
-          <p className='fs-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere eos ullam iusto alias, sapiente dolorum. Saepe laudantium quidem, tempora id, sequi perferendis nam totam neque pariatur corrupti dignissimos vero! Officia.</p>
+          <p className='fs-3'>University of Infomation and Technology - VNUHCM
+            MMTT2020</p>
         </div>
       </section>
     </>
