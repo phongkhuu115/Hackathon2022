@@ -138,15 +138,24 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         try {
+            // get token from request
+            $token = $request->bearerToken();
+            // hash token
+            $token = hash('sha256', $token);
+            // get userID from personal_access_tokens table
+            $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+            // check userID and hash token is exist in personal access token table
             $updateData = [];
             foreach ($request->all() as $key => $value) {
-                if ($key != 'userID') {
-                    $updateData[$key] = $value;
+                if ($key == 'id' || $key == 'full_name' || $key == 'username' || $key == 'mobile' || $key == 'email' || $key == 'birth') {
+                    if ($value != null) {
+                        $updateData[$key] = $value;
+                    }
                 }
             }
             return response()->json([
-                'status' => User::where('userID', User::find($request->username)->userID)->update([])    ?  'success' : 'fail, user not found',
-                'user updated' => User::where('username', $request->username)->get(),
+                'status' => User::where('id', $userID)->update($updateData) ? 'success' : 'info not changed',
+                'data' => $updateData
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([

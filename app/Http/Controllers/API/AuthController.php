@@ -105,6 +105,8 @@ class AuthController extends Controller
 
         //update status to online
         DB::table('user')->where('id', $user->id)->update(['status' => 'online']);
+        // update last login
+        DB::table('user')->where('id', $user->id)->update(['last_login' => now()]);
         $token = substr($token, 2);
         $response = [
             'user' => $userReturnData,

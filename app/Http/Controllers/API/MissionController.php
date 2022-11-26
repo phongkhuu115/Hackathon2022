@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\mission;
 use App\Models\mission_of_user;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MissionController extends Controller
 {
@@ -90,10 +91,18 @@ class MissionController extends Controller
 
     public function get5LatestOnProgress(Request $request)
     {
-        $mission = mission_of_user::where('status', 'Ongoing')->orderBy('id', 'desc')->limit(5)->get();
+        // get token from request
+        $token = $request->bearerToken();
+        // hash token
+        $token = hash('sha256', $token);
+        // get userID from personal_access_tokens table
+        $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+        // get 5 latest mission on progress join with mission table get only mission fields
+        $mission = mission_of_user::where('user_id', $userID)->where('status', 'Ongoing')->join('mission', 'mission.id', '=', 'mission_of_user.mission_id')->select('mission.*')->orderBy('mission_of_user.created_at', 'desc')->limit(5)->get();
         return response()->json([
             'mission' => $mission,
         ], 200);
+
     }
 
     public function getAllOnProgress(Request $request)
