@@ -36,12 +36,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/getAllMission', [MissionController::class, 'getAllMission']);
     Route::get('/get5LatestOnProgress', [MissionController::class, 'get5LatestOnProgress']);
     Route::get('/getAllOnProgress', [MissionController::class, 'getAllOnProgress']);
+    Route::post('/acceptMission', [MissionController::class, 'acceptMission']);
 
     Route::post('/postLike', [PostController::class, 'postLike']);
     Route::post('/postDislike', [PostController::class, 'postDislike']);
 
     Route::get('/getPrize', [PrizeController::class, 'getPrize']);
     Route::get('/purchasePrize', [PrizeController::class, 'purchasePrize']);
+
+
 
 });
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

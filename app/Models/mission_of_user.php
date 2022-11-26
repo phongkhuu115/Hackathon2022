@@ -30,6 +30,5 @@ class mission_of_user extends Model
         'status',
         'expire',
         'created_at',
-
     ];
 }

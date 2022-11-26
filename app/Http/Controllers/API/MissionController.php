@@ -10,60 +10,6 @@ use Illuminate\Support\Facades\DB;
 
 class MissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\mission  $mission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(mission $mission)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\mission  $mission
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, mission $mission)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\mission  $mission
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(mission $mission)
-    {
-        //
-    }
     public function getSpecifyMission(Request $request)
     {
         $mission = mission::where('id', $request->id)->get();
@@ -102,15 +48,48 @@ class MissionController extends Controller
         return response()->json([
             'mission' => $mission,
         ], 200);
-
     }
 
     public function getAllOnProgress(Request $request)
     {
-
         $mission = mission_of_user::where('status', 'Ongoing')->get();
         return response()->json([
             'mission' => $mission,
+        ], 200);
+    }
+
+    // acceptMission
+    public function acceptMission(Request $request)
+    {
+        // get token from request
+        $token = $request->bearerToken();
+        // hash token
+        $token = hash('sha256', $token);
+        // get userID from personal_access_tokens table
+        $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+
+        // get missionID from request
+        $missionID = $request->id;
+
+        // get mission of user from mission_of_user table
+        $missionOfUser = mission_of_user::where('user_id', $userID)->where('mission_id', $missionID)->first();
+        // check if mission of user is null
+        if ($missionOfUser == null) {
+            // create new mission of user
+            $missionOfUser = new mission_of_user();
+            $missionOfUser->user_id = $userID;
+            $missionOfUser->mission_id = $missionID;
+            $missionOfUser->status = 'Ongoing';
+            $missionOfUser->created_at = date('Y-m-d H:i:s');
+            $missionOfUser->expire = date('Y-m-d H:i:s');
+            $missionOfUser->save();
+        } else {
+            return response()->json([
+                'message' => 'Mission already accepted',
+            ], 200);
+        }
+        return response()->json([
+            'message' => 'Mission accepted successfully',
         ], 200);
     }
 }
