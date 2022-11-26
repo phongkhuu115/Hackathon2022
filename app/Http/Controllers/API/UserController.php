@@ -241,15 +241,6 @@ class UserController extends Controller
                     ];
                 });
 
-                // "mission_id": "4",
-                // "user_id": "692f99ee-4b6b-437e-8c12-26165c2bc674",
-                // "status": "Đã hoàn thành",
-                // "expire": "ZFrlvcIM7a",
-                // "mission_name": "Làm cỏ",
-                // "mission_description": "j0SuWZELMS",
-                // "score_mission": "7",
-                // "places": "khuôn viên KTX"
-
                 $this->updateExpireTimeOfToken($request);
                 return response()->json(
                     [

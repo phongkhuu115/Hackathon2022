@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -65,6 +67,22 @@ class PostController extends Controller
     {
         // get all post
         $posts = post::all();
-        return response()->json($posts);
+        $returnPosts = $posts->map(function ($post) {
+            return [
+                'post_id' => $post->id,
+                'post_caption' => $post->caption,
+                'post_image' => $post->image_url,
+                'post_created_at' => $post->create_at,
+                'post_updated_at' => $post->update_at,
+                'post_of_user' => $post->user_id,
+                'like' => $post->like,
+                'share' => $post->share,
+                'comment' => DB::table('comment')->where('post_id', $post->id)->get(),
+            ];
+        });
+
+        return response()->json([
+            'returnPost' => $returnPosts,
+        ], 200);
     }
 }
