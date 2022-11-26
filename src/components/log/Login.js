@@ -42,7 +42,7 @@ function Login(props) {
           <label htmlFor="username" className='text-uppercase mb-2'>Tài khoản</label>
           <input type="text" name="" id="username" className='form-control mb-3' onChange={(e) => { setUsername(e.target.value) }} />
           <label htmlFor="password" className='text-uppercase mb-2'>Mật khẩu</label>
-          <input type="text" name="" id="password" className='form-control mb-3' onChange={(e) => { setPassword(e.target.value) }} />
+          <input type="password" name="" id="password" className='form-control mb-3' onChange={(e) => { setPassword(e.target.value) }} />
           <p className='text-center'>Chưa có tài khoản ? <Link to='/signup'>Đăng ký</Link></p>
           <button className='btn btn-secondary mt-4 mx-5' onClick={handleSignin}>Đăng nhập</button>
           <div className='text-center mt-auto'>

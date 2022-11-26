@@ -17,8 +17,8 @@ function App(props) {
 
       </section>
       <div className='position-absolute top-50 start-50 translate-middle'>
-        <p className='text-white fs-1 text-center'>Lorem ipsum dolor sit amet</p>
-        <p className='text-white text-center'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Similique itaque in modi adipisci sint nobis cum vel doloribus pariatur quasi amet quisquam nisi mollitia, accusantium atque hic delectus corporis obcaecati.</p>
+        <p className='text-white fs-1 text-center'>Environment and Everyone</p>
+        <p className='text-white text-center'>Bảo vệ môi trường đang là vấn đề của mỗi con người, song mọi người có vẻ như không để tâm đến vấn đề này dù nó là trách nhiệm cũng như nghĩa vụ của mỗi người, lý do sâu xa thường là ảnh hưởng của sự thiếu ý thức và suy nghĩ chủ quan của mỗi con người. Chính vì thế, mạng xã hội sẽ là một công cụ hợp lý cho việc thay đổi cách nhìn, hành động của mỗi con người trong cộng đồng và xã hội. </p>
       </div>
     </>
   )

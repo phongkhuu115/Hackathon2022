@@ -33,3 +33,19 @@
 .like__number {
   color: #7fd871;
 }
+
+#comment {
+  height: 40px;
+}
+
+.single-comment {
+  background-color: #3a3b3c;
+}
+
+.mission-item {
+  cursor: pointer;
+}
+
+.mission-item:hover {
+  background-color: #242526;
+}

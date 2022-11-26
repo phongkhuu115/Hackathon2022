@@ -43,16 +43,16 @@ function App(props) {
           <p className='text-center text-uppercase fw-bold fs-1 mb-1'>Đăng ký</p>
           <label htmlFor="username" className='text-uppercase mb-2'>Tài khoản</label>
           <input type="text" name="" id="username" className='form-control mb-3' onChange={(e) => setUsername(e.target.value)} />
-          <label htmlFor="password" className='text-uppercase mb-2'>Họ và tên</label>
-          <input type="text" name="" id="password" className='form-control mb-3' onChange={(e) => setFullname(e.target.value)} />
+          <label htmlFor="fullname" className='text-uppercase mb-2'>Họ và tên</label>
+          <input type="text" name="" id="fullname" className='form-control mb-3' onChange={(e) => setFullname(e.target.value)} />
           <label htmlFor="password" className='text-uppercase mb-2'>Email</label>
-          <input type="text" name="" id="password" className='form-control  mb-3' onChange={(e) => setEmail(e.target.value)} />
-          <label htmlFor="password" className='text-uppercase mb-2'>Số điện thoại</label>
-          <input type="text" name="" id="password" className='form-control mb-3' onChange={(e) => setPhone(e.target.value)} />
+          <input type="email" name="" id="email" className='form-control  mb-3' onChange={(e) => setEmail(e.target.value)} />
+          <label htmlFor="phone" className='text-uppercase mb-2'>Số điện thoại</label>
+          <input type="text" name="" id="phone" className='form-control mb-3' onChange={(e) => setPhone(e.target.value)} />
           <label htmlFor="password" className='text-uppercase mb-2'>Mật khẩu</label>
-          <input type="text" name="" id="password" className='form-control  mb-3' onChange={(e) => setPassword(e.target.value)} />
-          <label htmlFor="password" className='text-uppercase mb-2'>Nhập lại mật khẩu</label>
-          <input type="text" name="" id="password" className='form-control  mb-1' onChange={(e) => setConfirm(e.target.value)} />
+          <input type="password" name="" id="password" className='form-control  mb-3' onChange={(e) => setPassword(e.target.value)} />
+          <label htmlFor="confirm" className='text-uppercase mb-2'>Nhập lại mật khẩu</label>
+          <input type="password" name="" id="confirm" className='form-control  mb-1' onChange={(e) => setConfirm(e.target.value)} />
           <p className='text-center'>Đã có tài khoản ? <Link to='/logon'>Đăng nhập</Link></p>
           <button className='btn btn-secondary mt-2 mx-5' onClick={handleSignup}>Đăng ký</button>
         </div>

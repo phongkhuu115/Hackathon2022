@@ -10,6 +10,7 @@ import postPic from '../../assets/homie.png'
 import '../../styles/NewsFeed.css'
 import { Link } from 'react-router-dom';
 import { GetAPINoToken } from '../helpers/CallAPI'
+import Modal from '../newsfeed/DetailModal'
 
 function NewsFeed(props) {
   const [quote, setQuote] = useState('');
@@ -26,9 +27,17 @@ function NewsFeed(props) {
     )
   }
 
+  function handleQuest() {
+    const dark = document.querySelector('.darken')
+    const modal = document.querySelector('.centered')
+
+    dark.classList.remove('hide')
+    modal.classList.remove('hide')
+  }
+
   return (
     <>
-      <div className='newsfeed d-flex'>
+      <div className='newsfeed d-flex position-relative'>
         <div className='col-3 border-end border-1'>
           <img src={Logo} alt="" className='newsfeed__logo mt-2' />
           <div className='border-bottom border-1'>
@@ -41,11 +50,11 @@ function NewsFeed(props) {
             </div>
             <div className='ms-3'>
               <p className='text-white fw-bold my-2'>Nhiệm vụ</p>
-              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3'> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ thụ</p>
-              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3'> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ đại</p>
-              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3'> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
-              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3'> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
-              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3'> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
+              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3 mission-item' onClick={handleQuest}> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ thụ</p>
+              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3 mission-item' onClick={handleQuest}> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ đại</p>
+              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3 mission-item' onClick={handleQuest}> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
+              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3 mission-item' onClick={handleQuest}> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
+              <p className='text-white fw-bold ms-2 d-flex align-items-center mb-3 mission-item' onClick={handleQuest}> <img src={exclamation} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
             </div>
           </div>
           <div className='d-flex flex-column position-relative'>
@@ -86,8 +95,36 @@ function NewsFeed(props) {
                 <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2 '>300 chia tiền</p>
               </div>
             </div>
+            <div className='comment-post mt-3'>
+              <div className='d-flex align-items-center'>
+                <img src={contact3} alt="" className='user__avt' />
+                <input type="text" name="" id="comment" className='col form-control rounded-pill' />
+              </div>
+              <div className='d-flex align-items-center mb-3'>
+                <img src={contact3} alt="" className='user__avt' />
+                <div className='single-comment ms-2 p-3 rounded-4'>
+                  <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
+                  <p className='text-white'>100 like nhảy cầu tự tử</p>
+                </div>
+              </div>
+              <div className='d-flex align-items-center mb-3'>
+                <img src={contact3} alt="" className='user__avt' />
+                <div className='single-comment ms-2 p-3 rounded-4'>
+                  <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
+                  <p className='text-white'>100 like nhảy cầu tự tử</p>
+                </div>
+              </div>
+              <div className='d-flex align-items-center mb-3'>
+                <img src={contact3} alt="" className='user__avt' />
+                <div className='single-comment ms-2 p-3 rounded-4'>
+                  <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
+                  <p className='text-white'>100 like nhảy cầu tự tử</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <Modal></Modal>
       </div>
     </>
   )
