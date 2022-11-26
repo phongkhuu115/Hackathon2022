@@ -26,9 +26,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/getNewfeed', [PostController::class, 'getNewfeed']);
     Route::get('/getProfile', [UserController::class, 'getProfile']);
     Route::post('/postComment', [PostController::class, 'postComment']);
+    Route::get('/getMyPost', [PostController::class, 'getMyPost']);
 
     Route::post('/updateInfo', [UserController::class, 'edit']);
-
 
     Route::get('/getSpecifyMission', [MissionController::class, 'getSpecifyMission']);
     Route::get('/get5RandomMission', [MissionController::class, 'get5RandomMission']);

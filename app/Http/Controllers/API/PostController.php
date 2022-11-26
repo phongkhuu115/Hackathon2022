@@ -90,6 +90,7 @@ class PostController extends Controller
                 'post_updated_at' => $post->update_at,
                 'post_of_user' => $post->user_id,
                 'full_name' => DB::table('user')->where('id', $post->user_id)->first()->full_name,
+                'avatar' => DB::table('user')->where('id', $post->user_id)->first()->avatar,
                 'like' => $post->like,
                 'share' => $post->share,
                 'comment_count' => DB::table('comment')->where('post_id', $post->id)->count(),
@@ -184,6 +185,56 @@ class PostController extends Controller
             $post->save();
             return response()->json([
                 'post' => $post,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'fail',
+                'error' => $th->getMessage(),
+            ], 500);
+        }
+    }
+    // get my post
+    public function getMyPost(Request $request)
+    {
+        try {
+            // get token from request
+            $token = $request->bearerToken();
+            // hash token
+            $token = hash('sha256', $token);
+            // get userID from personal_access_tokens table
+            $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+            $posts = post::where('user_id', $userID)->get();
+            $returnPosts = $posts->map(function ($post) {
+                $comment = DB::table('comment')->where('post_id', $post->id)->get();
+                $returnComment = $comment->map(function ($comment) {
+                    return [
+                        'id' => $comment->id,
+                        'user_id' => $comment->user_id,
+                        'full_name' => DB::table('user')->where('id', $comment->user_id)->value('full_name'),
+                        'post_id' => $comment->post_id,
+                        'content' => $comment->content,
+                        'create_at' => $comment->create_at,
+                        'update_at' => $comment->update_at,
+                    ];
+                });
+
+                return [
+                    'post_id' => $post->id,
+                    'post_caption' => $post->caption,
+                    'post_image' => $post->image_url,
+                    'post_created_at' => $post->create_at,
+                    'post_updated_at' => $post->update_at,
+                    'post_of_user' => $post->user_id,
+                    'full_name' => DB::table('user')->where('id', $post->user_id)->first()->full_name,
+                    'avatar' => DB::table('user')->where('id', $post->user_id)->first()->avatar,
+                    'like' => $post->like,
+                    'share' => $post->share,
+                    'comment_count' => DB::table('comment')->where('post_id', $post->id)->count(),
+                    'comment' => $returnComment,
+                ];
+            });
+            return response()->json([
+                'posts' => $returnPosts,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
