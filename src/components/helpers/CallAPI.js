@@ -10,3 +10,12 @@ export let PostAPINoToken = async (url, body) => {
   })
   return request;
 }
+
+export let GetAPINoToken = async (url) => {
+  let request = await axios(url, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  return request;
+}

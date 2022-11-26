@@ -1,0 +1,35 @@
+.user__avt {
+  width: 75px;
+}
+
+.newsfeed {
+  background-color: #18191a;
+}
+
+.newsfeed__logo {
+  width: 100px;
+}
+
+.exclamation {
+  height: 25px;
+}
+
+.question {
+  height: 25px;
+}
+
+.random__quote {
+  height: 150px;
+}
+
+.quote {
+  /* line-height: 200px; */
+}
+
+.posts {
+  background-color: #242526;
+}
+
+.like__number {
+  color: #7fd871;
+}

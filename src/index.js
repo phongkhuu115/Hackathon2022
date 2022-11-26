@@ -6,6 +6,7 @@ import LandingSection2 from './components/landing/LandingSection2';
 import LandingSection3 from './components/landing/LandingSection3';
 import Login from './components/log/Login'
 import Register from './components/log/Register';
+import NewsFeed from './components/newsfeed/NewsFeed';
 import './index.css';
 import {
   BrowserRouter,
@@ -23,6 +24,7 @@ root.render(
       </Route>
       <Route path ="/logon" index element={<Login></Login>}></Route>
       <Route path ="/signup" index element={<Register></Register>}></Route>
+      <Route path ="/home" index element={<NewsFeed></NewsFeed>}></Route>
     </Routes>
   </HashRouter>
 );

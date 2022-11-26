@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/Log.css'
 import { PostAPINoToken } from '../helpers/CallAPI'
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function App(props) {
   const [username, setUsername] = useState('');
@@ -51,7 +52,8 @@ function App(props) {
           <label htmlFor="password" className='text-uppercase mb-2'>Mật khẩu</label>
           <input type="text" name="" id="password" className='form-control  mb-3' onChange={(e) => setPassword(e.target.value)} />
           <label htmlFor="password" className='text-uppercase mb-2'>Nhập lại mật khẩu</label>
-          <input type="text" name="" id="password" className='form-control  mb-3' onChange={(e) => setConfirm(e.target.value)} />
+          <input type="text" name="" id="password" className='form-control  mb-1' onChange={(e) => setConfirm(e.target.value)} />
+          <p className='text-center'>Đã có tài khoản ? <Link to='/logon'>Đăng nhập</Link></p>
           <button className='btn btn-secondary mt-2 mx-5' onClick={handleSignup}>Đăng ký</button>
         </div>
       </div>
