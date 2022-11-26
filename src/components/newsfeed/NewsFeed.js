@@ -316,7 +316,7 @@ function NewsFeed(props) {
             <p className='text-white fw-bold my-2'>Thử Thách</p>
             <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={blueQuestion} alt="" className='exclamation me-2' /> Đạp xe 3 tiếng</p>
             <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={blueQuestion} alt="" className='exclamation me-2' /> Đi bộ 500km</p>
-            <Link to='/exchange' className='d-block text-center text-decoration-none text-white fw-bold fs-3 mt-5' onClick={PopupChange}>
+            <Link state={{score: score}} to='/exchange' className='d-block text-center text-decoration-none text-white fw-bold fs-3 mt-5' onClick={PopupChange}>
               Đổi thưởng
             </Link>
           </div>

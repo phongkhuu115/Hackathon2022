@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { GetAPIToken } from '../helpers/CallAPI'
+import { useLocation } from 'react-router-dom';
+import '../../styles/Exchange.css'
 
 function App(props) {
+  const location = useLocation();
   const [award, setAward] = useState([{
     prize_image: "abc",
     prize_name: "abc",
@@ -34,25 +37,27 @@ function App(props) {
   }, []);
 
   function handleExchange(id, point) {
-    if (point < 300) {
-
+    if (location.state.score < point) {
+      alert("Không đủ điểm")
     }
+    else {
+      let url = "http://eaebe.f4koin.cyou/api/purchasePrize?id=" + id
+      console.log(url)
+      GetAPIToken(url).then(res => {
+        console.log(res)
+        if (res.data.message === "Purchase prize success") {
+          alert(res.data.message);
+        }
+        else alert(res.data.message);
 
-    let url = "http://eaebe.f4koin.cyou/api/purchasePrize?id=" + id
-    console.log(url)
-    GetAPIToken(url).then(res => {
-      console.log(res)
-      if (res.data.message === "Purchase prize success") {
-        alert(res.data.message);
-      }
-      else alert(res.data.message);
-
-    })
+      })
+    }
   }
 
   return (
     <>
-      <div className='d-flex bg-black justify-content-center p-5'>
+      <div className='d-flex bg-black justify-content-center align-items-center p-5 exchange position-relative'>
+        <p className='text-white current-score position-absolute top-100 start-50 translate-middle'>Điểm hiện tại: {location.state.score}</p>
         <div className='d-flex flex-column posts mx-2 p-3 rounded'>
           <img src={award[0].prize_image} alt="" className='award__pic' />
           <p className="text-white text-center">{award[0].prize_name}</p>
