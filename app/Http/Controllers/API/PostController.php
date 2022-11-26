@@ -70,6 +70,13 @@ class PostController extends Controller
     }
     public function postPost(Request $request)
     {
+        $random_iam = [
+        "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork.png?alt=media&token=d262a024-6b94-49c0-ba2f-67fbcb80b696",
+        "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwok2.png?alt=media&token=8c988714-1109-410e-9da6-0c44c2f4f5ae",
+        "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork3.png?alt=media&token=ace32d7d-1caf-4ac2-ac9f-b2b8d157f9eb",
+        "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork1.png?alt=media&token=0dfba813-ecaf-4fbc-948f-7dac29fa6613]",
+        ];
+        $random_iam = $random_iam[rand(0,3)];
         // get token from request
         $token = $request->bearerToken();
         // hash token
@@ -79,7 +86,7 @@ class PostController extends Controller
         $post = post::create([
             'user_id' => $userID,
             'caption' => $request->caption,
-            'image_url' => $request->image_url,
+            'image_url' => $random_iam,
             'like' => 0,
             'share' => 0,
             'create_at' => date('Y-m-d H:i:s'),
