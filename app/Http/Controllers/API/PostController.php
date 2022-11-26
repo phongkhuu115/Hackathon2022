@@ -75,7 +75,9 @@ class PostController extends Controller
                     'id' => $comment->id,
                     'user_id' => $comment->user_id,
                     'full_name' => DB::table('user')->where('id', $comment->user_id)->value('full_name'),
+                    'avatar' => DB::table('user')->where('id', $comment->user_id)->value('avatar'),
                     'post_id' => $comment->post_id,
+
                     'content' => $comment->content,
                     'create_at' => $comment->create_at,
                     'update_at' => $comment->update_at,
@@ -211,6 +213,7 @@ class PostController extends Controller
                         'id' => $comment->id,
                         'user_id' => $comment->user_id,
                         'full_name' => DB::table('user')->where('id', $comment->user_id)->value('full_name'),
+                        'avatar' => DB::table('user')->where('id', $comment->user_id)->value('avatar'),
                         'post_id' => $comment->post_id,
                         'content' => $comment->content,
                         'create_at' => $comment->create_at,
