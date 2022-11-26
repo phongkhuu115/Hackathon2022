@@ -15,6 +15,6 @@ class PrizeController extends Controller
     {
         //limit 4
         $prize = prize::all()->take(4);
-        return response()->json($prize);
+        return response()->json(['prize' => $prize], 200);
     }
 }
