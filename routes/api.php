@@ -23,6 +23,9 @@ Route::post('/checkToken', [AuthController::class, 'checkToken']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/getNewfeed', [PostController::class, 'getNewfeed']);
     Route::get('/getProfile', [UserController::class, 'getProfile']);
+    Route::post('/postComment', [PostController::class, 'postComment']);
+    Route::post('/postPost', [PostController::class, 'postPost']);
+
 });
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\comment;
 use App\Models\post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,5 +85,26 @@ class PostController extends Controller
         return response()->json([
             'returnPost' => $returnPosts,
         ], 200);
+    }
+    public function postComment(Request $request)
+    {
+        // get token from request
+        $token = $request->bearerToken();
+        // hash token
+        $token = hash('sha256', $token);
+        // get userID from personal_access_tokens table
+        $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+        $comment = comment::create([
+            'user_id' => $userID,
+            'post_id' => $request->post_id,
+            'content' => $request->content,
+            'create_at' => date('Y-m-d H:i:s'),
+        ]);
+        return response()->json([
+           'comment' => $comment,
+        ], 200);
+    }
+    public function postPost(Request $request)
+    {
     }
 }
