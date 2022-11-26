@@ -234,7 +234,7 @@ class PostController extends Controller
                 ];
             });
             return response()->json([
-                'posts' => $returnPosts,
+                'returnPost' => $returnPosts,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
