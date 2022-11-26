@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -7,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mockery\Generator\Method;
 use PhpParser\Builder\Method as BuilderMethod;
+
+use function PHPSTORM_META\map;
 
 class UserController extends Controller
 {
@@ -215,10 +218,44 @@ class UserController extends Controller
                     'avatar' => $user->avatar,
                     'score' => $user->score,
                 ];
+                // get mission of user
+                $InProgressMissions = DB::table('mission_of_user')->join('mission', 'mission_of_user.mission_id', '=', 'mission.id')->where('user_id', $userID)->get();
+
+                $returnInProgressMissions = $InProgressMissions->map(function ($mission) {
+                    return [
+                        'name' => $mission->mission_name,
+                        'description' => $mission->mission_description,
+                        'score' => $mission->score_mission,
+                        'status' => $mission->status,
+                        'created_at' => $mission->created_at,
+                        'expired_at' => $mission->expire,
+                    ];
+                });
+
+                $missionGeneral = DB::table('mission')->get();
+                $returnMissionGeneral = $missionGeneral->map(function ($mission) {
+                    return [
+                        'name' => $mission->mission_name,
+                        'description' => $mission->mission_description,
+                        'score' => $mission->score_mission,
+                    ];
+                });
+
+                // "mission_id": "4",
+                // "user_id": "692f99ee-4b6b-437e-8c12-26165c2bc674",
+                // "status": "Đã hoàn thành",
+                // "expire": "ZFrlvcIM7a",
+                // "mission_name": "Làm cỏ",
+                // "mission_description": "j0SuWZELMS",
+                // "score_mission": "7",
+                // "places": "khuôn viên KTX"
+
                 $this->updateExpireTimeOfToken($request);
                 return response()->json(
                     [
                         'profile' => $returnUser,
+                        'missions_general' => $returnMissionGeneral,
+                        'missions' => $returnInProgressMissions,
                         'message' => 'success'
                     ],
                     200
