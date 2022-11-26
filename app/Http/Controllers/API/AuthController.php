@@ -101,15 +101,14 @@ class AuthController extends Controller
         $userReturnData = [
             'userID' => $user->id,
             'username' => $user->username,
-
         ];
 
         //update status to online
         DB::table('user')->where('id', $user->id)->update(['status' => 'online']);
+        $token = substr($token, 2);
         $response = [
             'user' => $userReturnData,
             'token' => $token,
-            'public_key' => $user->public_key,
             'message' => 'Login success'
         ];
 
