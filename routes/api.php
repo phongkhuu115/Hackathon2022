@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ItemController;
 use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\PostController;
 use App\Models\Role;
+use App\Http\Controllers\API\PostController;
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +27,7 @@ Route::post('/checkToken', [AuthController::class, 'checkToken']);
 // Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/getNewfeed', [PostController::class, 'getNewfeed']);
+    Route::get('/getProfile', [UserController::class, 'getProfile']);
 });
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();

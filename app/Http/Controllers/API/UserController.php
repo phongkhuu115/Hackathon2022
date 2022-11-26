@@ -196,7 +196,7 @@ class UserController extends Controller
 
 
     // get my profile
-    public function getmyprofile(Request $request)
+    public function getProfile(Request $request)
     {
         try {
             // get token from request
@@ -210,10 +210,15 @@ class UserController extends Controller
 
             if ($isMySelf && !$this->isExpiredToken($request)) {
                 $user = User::find($userID);
+                $returnUser = [
+                    'full_name' => $user->full_name,
+                    'avatar' => $user->avatar,
+                    'score' => $user->score,
+                ];
                 $this->updateExpireTimeOfToken($request);
                 return response()->json(
                     [
-                        'your profile' => $user,
+                        'profile' => $returnUser,
                         'message' => 'success'
                     ],
                     200

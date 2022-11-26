@@ -63,8 +63,8 @@ class PostController extends Controller
     }
     public function getNewfeed(Request $request)
     {
-        $user = $request->user();
-        $posts = $user->posts()->with('user')->get();
+        // get all post
+        $posts = post::all();
         return response()->json($posts);
     }
 }
