@@ -91,8 +91,8 @@ function NewsFeed(props) {
               <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2 '> <img src={comment} alt="" className='me-2' /> Bình luận</p>
               <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2'> <img src={share} alt="" className='me-2' /> Chia sẻ</p>
               <div className='d-flex align-items-center'>
-                <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2 me-3'>100 bình thiên hạ</p>
-                <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2 '>300 chia tiền</p>
+                <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2 me-3'>100 bình luận</p>
+                <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2 '>300 chia sẻ</p>
               </div>
             </div>
             <div className='comment-post mt-3'>
@@ -104,21 +104,21 @@ function NewsFeed(props) {
                 <img src={contact3} alt="" className='user__avt' />
                 <div className='single-comment ms-2 p-3 rounded-4'>
                   <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                  <p className='text-white'>100 like nhảy cầu tự tử</p>
+                  <p className='text-white'>100 like trồng cây</p>
                 </div>
               </div>
               <div className='d-flex align-items-center mb-3'>
                 <img src={contact3} alt="" className='user__avt' />
                 <div className='single-comment ms-2 p-3 rounded-4'>
                   <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                  <p className='text-white'>100 like nhảy cầu tự tử</p>
+                  <p className='text-white'>100 like trồng cây</p>
                 </div>
               </div>
               <div className='d-flex align-items-center mb-3'>
                 <img src={contact3} alt="" className='user__avt' />
                 <div className='single-comment ms-2 p-3 rounded-4'>
                   <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                  <p className='text-white'>100 like nhảy cầu tự tử</p>
+                  <p className='text-white'>100 like trồng cây</p>
                 </div>
               </div>
             </div>
