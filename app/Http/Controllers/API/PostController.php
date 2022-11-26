@@ -7,7 +7,7 @@ use App\Models\comment;
 use App\Models\post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\like;
 class PostController extends Controller
 {
     public function getNewfeed(Request $request)
@@ -39,7 +39,7 @@ class PostController extends Controller
                 'post_of_user' => $post->user_id,
                 'full_name' => DB::table('user')->where('id', $post->user_id)->first()->full_name,
                 'avatar' => DB::table('user')->where('id', $post->user_id)->first()->avatar,
-                'like' => $post->like,
+                'like' => DB::table('like')->where('post_id', $post->id)->count(),
                 'share' => $post->share,
                 'comment_count' => DB::table('comment')->where('post_id', $post->id)->count(),
                 'comment' => $returnComment,
@@ -71,12 +71,12 @@ class PostController extends Controller
     public function postPost(Request $request)
     {
         $random_iam = [
-        "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork.png?alt=media&token=d262a024-6b94-49c0-ba2f-67fbcb80b696",
-        "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwok2.png?alt=media&token=8c988714-1109-410e-9da6-0c44c2f4f5ae",
-        "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork3.png?alt=media&token=ace32d7d-1caf-4ac2-ac9f-b2b8d157f9eb",
-        "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork1.png?alt=media&token=0dfba813-ecaf-4fbc-948f-7dac29fa6613]",
+            "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork.png?alt=media&token=d262a024-6b94-49c0-ba2f-67fbcb80b696",
+            "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwok2.png?alt=media&token=8c988714-1109-410e-9da6-0c44c2f4f5ae",
+            "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork3.png?alt=media&token=ace32d7d-1caf-4ac2-ac9f-b2b8d157f9eb",
+            "https://firebasestorage.googleapis.com/v0/b/web-koin.appspot.com/o/Hackathon%2Fwork1.png?alt=media&token=0dfba813-ecaf-4fbc-948f-7dac29fa6613]",
         ];
-        $random_iam = $random_iam[rand(0,3)];
+        $random_iam = $random_iam[rand(0, 3)];
         // get token from request
         $token = $request->bearerToken();
         // hash token
@@ -106,12 +106,31 @@ class PostController extends Controller
             // get userID from personal_access_tokens table
             $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
             $post = post::find($request->post_id);
-            $post->like = $post->like + 1;
-            $post->save();
-            return response()->json([
-                'post' => $post,
-                // 'request' => $request->all(),
-            ], 200);
+            // insert like
+            // if user liked post
+            if (DB::table('like')->where('user_id', $userID)->where('post_id', $request->post_id)->exists()) {
+                // delete like
+                DB::table('like')->where('user_id', $userID)->where('post_id', $request->post_id)->delete();
+                // update like count
+                $post->like = DB::table('like')->where('post_id', $request->post_id)->count();
+                $post->save();
+                return response()->json([
+                    'message' => 'User unliked post',
+                ], 200);
+            } else {
+                // insert like
+                like::create([
+                    'user_id' => $userID,
+                    'post_id' => $request->post_id,
+                    'create_at' => date('Y-m-d H:i:s'),
+                ]);
+                // update like count
+                $post->like = DB::table('like')->where('post_id', $request->post_id)->count();
+                $post->save();
+                return response()->json([
+                    'message' => 'User liked post',
+                ], 200);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'message' => 'fail',
@@ -183,7 +202,7 @@ class PostController extends Controller
                     'post_of_user' => $post->user_id,
                     'full_name' => DB::table('user')->where('id', $post->user_id)->first()->full_name,
                     'avatar' => DB::table('user')->where('id', $post->user_id)->first()->avatar,
-                    'like' => $post->like,
+                    'like' => DB::table('like')->where('post_id', $post->id)->count(),
                     'share' => $post->share,
                     'comment_count' => DB::table('comment')->where('post_id', $post->id)->count(),
                     'comment' => $returnComment,
