@@ -1,14 +1,9 @@
 <?php
 
-use App\Http\Controllers\API\AuthController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\API\ItemController;
-use App\Http\Controllers\API\CategoryController;
-use App\Models\Role;
 use App\Http\Controllers\API\PostController;
-use App\Models\User;
+use App\Http\Controllers\API\AuthController;
 
 /*
 |--------------------------------------------------------------------------
