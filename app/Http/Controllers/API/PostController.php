@@ -152,17 +152,24 @@ class PostController extends Controller
     // Dislike
     public function postDislike(Request $request)
     {
-        // get token from request
-        $token = $request->bearerToken();
-        // hash token
-        $token = hash('sha256', $token);
-        // get userID from personal_access_tokens table
-        $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
-        $post = post::find($request->post_id);
-        $post->like = $post->like - 1;
-        $post->save();
-        return response()->json([
-            'post' => $post,
-        ], 200);
+        try {
+            // get token from request
+            $token = $request->bearerToken();
+            // hash token
+            $token = hash('sha256', $token);
+            // get userID from personal_access_tokens table
+            $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+            $post = post::find($request->post_id);
+            $post->like = $post->like - 1;
+            $post->save();
+            return response()->json([
+                'post' => $post,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'fail',
+                'error' => $th->getMessage(),
+            ], 500);
+        }
     }
 }

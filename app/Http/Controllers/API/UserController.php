@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -137,26 +138,20 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         try {
-            if ($this->isAdmin($request) && $this->isvalidRequest($request)) {
-                return response()->json([
-                    'status' => User::where('userID', User::find($request->username)->userID)->update([
-                        'userName' => $request->username,
-                        'userFullName' => $request->userFullName,
-                        'userEmail' => $request->userEmail,
-                        'password' =>  bcrypt($request->password),
-                        'userTelephone' => $request->userTelephone,
-                        'userAddress' => $request->userAddress,
-                        'userAvatar' => $request->userAvatar,
-                        'userStatus' => $request->userStatus,
-                    ])    ?  'success' : 'fail, user not found',
-                    'user updated' => User::where('username', $request->username)->get(),
-                ], 200);
-            } else {
-                return response()->json([
-                    // 'request' => $request->all(),
-                    'message' => 'You have no permission'
-                ], 401);
-            }
+
+            return response()->json([
+                'status' => User::where('userID', User::find($request->username)->userID)->update([
+                    'userName' => $request->username,
+                    'userFullName' => $request->userFullName,
+                    'userEmail' => $request->userEmail,
+                    'password' =>  bcrypt($request->password),
+                    'userTelephone' => $request->userTelephone,
+                    'userAddress' => $request->userAddress,
+                    'userAvatar' => $request->userAvatar,
+                    'userStatus' => $request->userStatus,
+                ])    ?  'success' : 'fail, user not found',
+                'user updated' => User::where('username', $request->username)->get(),
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'request' => $request->all(),
