@@ -90,7 +90,7 @@ function NewsFeed(props) {
     }
     PostAPIToken(url, body).then(res => {
       if (res.status === 200) {
-        alert('Like thành công')
+        alert(res.data.message)
       }
     })
   }
@@ -153,15 +153,15 @@ function NewsFeed(props) {
             {/* Phần comment */}
             <div className='comment-post mt-3'>
               <div className='d-flex align-items-center'>
-                <img src={contact3} alt="" className='user__avt' />
+                <img src={avt} alt="" className='user__avt rounded-circle' />
                 <input type="text" name="" id="comment" className='col form-control rounded-pill' onKeyDown={(e) => Comment(e, item.post_id, e.target.value)} />
               </div>
               {item.comment.map(
                 i => {
                   return (
                     <>
-                      <div className='d-flex align-items-center mb-3'>
-                        <img src={contact3} alt="" className='user__avt' />
+                      <div className='d-flex align-items-center my-3'>
+                        <img src={i.avatar} alt="" className='user__avt rounded-circle' />
                         <div className='single-comment ms-2 p-3 rounded-4'>
                           <p className='text-white fw-bold'>{i.full_name}</p>
                           <p className='text-white'>{i.content}</p>
@@ -251,12 +251,14 @@ function NewsFeed(props) {
 
   const [fullname, setFullName] = useState('Admin')
   const [score, setScore] = useState('50')
+  const [avt, setAvt] = useState('asd')
 
   useEffect(() => {
     let url = "https://eaebe.f4koin.cyou/api/getProfile"
     GetAPIToken(url).then(res => {
       setFullName(res.data.profile.full_name)
       setScore(res.data.profile.score)
+      setAvt(res.data.profile.avatar)
     })
   }, [])
 
@@ -288,7 +290,7 @@ function NewsFeed(props) {
           {/* <img src={Logo} alt="" className='newsfeed__logo mt-2 ms-2' /> */}
           <div className=''>
             <Link to='/profile' className='d-flex align-items-center ms-3 mb-2 mt-3 posts rounded text-decoration-none mission-item'>
-              <img src={contact3} alt="" className='user__avt' />
+              <img src={avt} alt="" className='user__avt rounded-circle' />
               <div className=''>
                 <p className='text-white fw-bold'>{fullname}</p>
                 <p className='text-white fw-bold'>{score} điểm</p>
@@ -316,7 +318,7 @@ function NewsFeed(props) {
             <p className='text-white fw-bold my-2'>Thử Thách</p>
             <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={blueQuestion} alt="" className='exclamation me-2' /> Đạp xe 3 tiếng</p>
             <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={blueQuestion} alt="" className='exclamation me-2' /> Đi bộ 500km</p>
-            <Link state={{score: score}} to='/exchange' className='d-block text-center text-decoration-none text-white fw-bold fs-3 mt-5' onClick={PopupChange}>
+            <Link state={{ score: score }} to='/exchange' className='d-block text-center text-decoration-none text-white fw-bold fs-3 mt-5' onClick={PopupChange}>
               Đổi thưởng
             </Link>
           </div>
@@ -325,7 +327,7 @@ function NewsFeed(props) {
         <div className='col'>
           {/* Phần đăng bài */}
           <div className='d-flex align-items-center mx-3 mt-3 mb-2 rounded posts'>
-            <img src={contact3} alt="" className='user__avt' />
+            <img src={avt} alt="" className='user__avt rounded-circle' />
             <input type="text" className='d-block form-control bg-secondary' onClick={handlePosting} />
           </div>
           <RenderPost></RenderPost>
