@@ -18,6 +18,10 @@ function App(props) {
 
   }, []);
 
+  function Posting() { 
+    
+  }
+
   return (
     <>
       <div className='posting darken hide'>

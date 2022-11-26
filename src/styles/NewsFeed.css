@@ -69,3 +69,7 @@
 .award__pic {
   height: 242px;
 }
+
+.accept-btn {
+  cursor: pointer;
+}

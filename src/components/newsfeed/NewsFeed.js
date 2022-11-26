@@ -266,12 +266,14 @@ function NewsFeed(props) {
     }
   }
 
-  function handleAccept(id) { 
-    let url = ""
+  function handleAccept() { 
+    let url = "https://eaebe.f4koin.cyou/api/acceptMission"
     let body = {
       id: localStorage.getItem('currentMission')
     }
-    PostAPIToken(url, body).then(res => { })
+    PostAPIToken(url, body).then(res => { 
+      alert(res.data.message)
+    })
   }
 
   return (
@@ -344,7 +346,7 @@ function NewsFeed(props) {
               <p className='text-white m-5 bg-secondary p-3 rounded d-inline-block quest__reward'></p>
             </div>
             <div className='d-flex justify-content-end'>
-              <div className='text-end me-5 py-3 px-4 bg-secondary rounded text-white' >Nhận</div>
+              <div className='text-end me-5 py-3 px-4 bg-secondary rounded text-white accept-btn' onClick={handleAccept}>Nhận</div>
             </div>
           </div>
         </div>
