@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -101,7 +102,7 @@ class PostController extends Controller
             'create_at' => date('Y-m-d H:i:s'),
         ]);
         return response()->json([
-           'comment' => $comment,
+            'comment' => $comment,
         ], 200);
     }
     public function postPost(Request $request)
@@ -121,7 +122,47 @@ class PostController extends Controller
             'create_at' => date('Y-m-d H:i:s'),
         ]);
         return response()->json([
-           'post' => $post,
+            'post' => $post,
+        ], 200);
+    }
+    // Like
+    public function postLike(Request $request)
+    {
+        try {
+            // get token from request
+            $token = $request->bearerToken();
+            // hash token
+            $token = hash('sha256', $token);
+            // get userID from personal_access_tokens table
+            $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+            $post = post::find($request->post_id);
+            $post->like = $post->like + 1;
+            $post->save();
+            return response()->json([
+                'post' => $post,
+                // 'request' => $request->all(),
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'fail',
+                'error' => $th->getMessage(),
+            ], 500);
+        }
+    }
+    // Dislike
+    public function postDislike(Request $request)
+    {
+        // get token from request
+        $token = $request->bearerToken();
+        // hash token
+        $token = hash('sha256', $token);
+        // get userID from personal_access_tokens table
+        $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+        $post = post::find($request->post_id);
+        $post->like = $post->like - 1;
+        $post->save();
+        return response()->json([
+            'post' => $post,
         ], 200);
     }
 }

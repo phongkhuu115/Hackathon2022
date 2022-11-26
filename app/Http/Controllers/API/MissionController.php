@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\mission;
+use App\Models\mission_of_user;
 use Illuminate\Http\Request;
 
 class MissionController extends Controller
@@ -65,7 +67,41 @@ class MissionController extends Controller
     {
         $mission = mission::where('id', $request->id)->get();
         return response()->json([
-            'mission'=>$mission,
-        ],200);
+            'mission' => $mission,
+        ], 200);
+    }
+    // get5RandomMission except challenge
+    public function get5RandomMission(Request $request)
+    {
+        $mission = mission::where('mission_type', '!=', 'challenge')->inRandomOrder()->limit(5)->get();
+        return response()->json([
+            'mission' => $mission,
+        ], 200);
+    }
+
+
+    public function getAllMission(Request $request)
+    {
+        $mission = mission::all();
+        return response()->json([
+            'mission' => $mission,
+        ], 200);
+    }
+
+    public function get5LatestOnProgress(Request $request)
+    {
+        $mission = mission_of_user::where('status', 'Ongoing')->orderBy('id', 'desc')->limit(5)->get();
+        return response()->json([
+            'mission' => $mission,
+        ], 200);
+    }
+
+    public function getAllOnProgress(Request $request)
+    {
+
+        $mission = mission_of_user::where('status', 'Ongoing')->get();
+        return response()->json([
+            'mission' => $mission,
+        ], 200);
     }
 }

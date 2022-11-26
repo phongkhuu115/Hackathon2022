@@ -212,42 +212,43 @@ class UserController extends Controller
 
             if ($isMySelf && !$this->isExpiredToken($request)) {
                 $user = User::find($userID);
-                $returnUser = [
-                    'full_name' => $user->full_name,
-                    'avatar' => $user->avatar,
-                    'score' => $user->score,
-                ];
+                $returnUser = $user;
+                // [
+                //     'full_name' => $user->full_name,
+                //     'avatar' => $user->avatar,
+                //     'score' => $user->score,
+                // ];
                 // get mission of user
-                $InProgressMissions = DB::table('mission_of_user')->join('mission', 'mission_of_user.mission_id', '=', 'mission.id')->where('user_id', $userID)->get();
+                // $InProgressMissions = DB::table('mission_of_user')->join('mission', 'mission_of_user.mission_id', '=', 'mission.id')->where('user_id', $userID)->get();
 
-                $returnInProgressMissions = $InProgressMissions->map(function ($mission) {
-                    return [
-                        'id' => $mission->id,
-                        'name' => $mission->mission_name,
-                        'description' => $mission->mission_description,
-                        'score' => $mission->score_mission,
-                        'status' => $mission->status,
-                        'created_at' => $mission->created_at,
-                        'expired_at' => $mission->expire,
-                    ];
-                });
+                // $returnInProgressMissions = $InProgressMissions->map(function ($mission) {
+                //     return [
+                //         'id' => $mission->id,
+                //         'name' => $mission->mission_name,
+                //         'description' => $mission->mission_description,
+                //         'score' => $mission->score_mission,
+                //         'status' => $mission->status,
+                //         'created_at' => $mission->created_at,
+                //         'expired_at' => $mission->expire,
+                //     ];
+                // });
 
-                $missionGeneral = DB::table('mission')->get();
-                $returnMissionGeneral = $missionGeneral->map(function ($mission) {
-                    return [
-                        'id' => $mission->id,
-                        'name' => $mission->mission_name,
-                        'description' => $mission->mission_description,
-                        'score' => $mission->score_mission,
-                    ];
-                });
+                // $missionGeneral = DB::table('mission')->get();
+                // $returnMissionGeneral = $missionGeneral->map(function ($mission) {
+                //     return [
+                //         'id' => $mission->id,
+                //         'name' => $mission->mission_name,
+                //         'description' => $mission->mission_description,
+                //         'score' => $mission->score_mission,
+                //     ];
+                // });
 
                 $this->updateExpireTimeOfToken($request);
                 return response()->json(
                     [
                         'profile' => $returnUser,
-                        'missions_general' => $returnMissionGeneral,
-                        'missions' => $returnInProgressMissions,
+                        // 'missions_general' => $returnMissionGeneral,
+                        // 'missions' => $returnInProgressMissions,
                         'message' => 'success'
                     ],
                     200
