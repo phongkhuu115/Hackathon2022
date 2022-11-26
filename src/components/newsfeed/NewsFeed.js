@@ -18,15 +18,26 @@ import '../../styles/Modal.css'
 function NewsFeed(props) {
 
 
-  function handleQuest(name, desc, reward) {
+  function handleQuest(name, desc, reward, type) {
     const quest = document.querySelectorAll('.quest')
     console.log(quest)
     for (let i = 0; i < quest.length; i++) {
       quest[i].classList.remove('hide')
     }
 
+    let icon;
+    if (type === "on-going") {
+      icon = question
+    }
+    else if (type === "challenge") {
+      icon = blueQuestion
+    }
+    else { 
+      icon = exclamation
+    }
+
     let questName = document.querySelector('.quest__name')
-    questName.innerHTML = `<img src=${exclamation} alt="" className='exclamation me-2' /> ${name}`
+    questName.innerHTML = `<img src=${icon} alt="" className='exclamation me-2' /> ${name}`
     let questDesc = document.querySelector('.quest__desc')
     questDesc.innerHTML = desc
     let questReward = document.querySelector('.quest__reward')
@@ -58,7 +69,7 @@ function NewsFeed(props) {
 
   function RenderOnGoing() {
     const [mission, setMission] = useState([]);
-    let url = "https://eaebe.f4koin.cyou/api/get5RandomMission"
+    let url = "https://eaebe.f4koin.cyou/api/get5LatestOnProgress"
     useEffect(() => {
       GetAPIToken(url).then(res => {
         setMission(res.data.mission.slice())
@@ -66,7 +77,7 @@ function NewsFeed(props) {
     }, []);
     return mission.map(item => {
       return (
-        <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> </p>
+        <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={() => handleQuest(item.mission_name, item.mission_description, item.score_mission,"on-going")}> <img src={question} alt="" className='exclamation me-2' />{ item.mission_name} </p>
       )
     })
   }
@@ -86,7 +97,7 @@ function NewsFeed(props) {
 
             {/* Avatar */}
             <div className='d-flex align-items-center mt-2'>
-              <img src={contact3} alt="" className='user__avt' />
+              <img src={item.avatar} alt="" className='user__avt' />
               <div className=''>
                 <p className='text-white fw-bold'>{item.full_name}</p>
                 <p className='text-white fw-bold'>{item.post_created_at}</p>
@@ -170,11 +181,12 @@ function NewsFeed(props) {
                 <p className='text-white fw-bold my-2'>Đang thực hiện</p>
                 <Link className='my-2 text-primary viewall'>Xem tất cả</Link>
               </div>
-              <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ thụ</p>
+              <RenderOnGoing></RenderOnGoing>
+              {/* <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ thụ</p>
               <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ đại</p>
               <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
               <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
-              <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p>
+              <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={question} alt="" className='exclamation me-2' /> Trồng cây cổ kính</p> */}
             </div>
           </div>
           {/* Nhiệm vụ */}

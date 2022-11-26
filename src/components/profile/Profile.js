@@ -11,23 +11,36 @@ function App(props) {
   const [fullName, setFullName] = useState("USER VALID");
   const [followers, setFollowers] = useState(100);
   const [avatar, setAvatar] = useState(contact3)
-  const [profile, setProfile] = useState({
-    email: "test@123",
-    birth: "test-test-test",
-    phone: "test"
-  })
 
-  
+  function RenderProfile() {
+    const [profile, setProfile] = useState({})
+    let url = "https://eaebe.f4koin.cyou/api/getProfile"
+
+    useEffect(() => {
+      GetAPIToken(url).then(res => {
+        setProfile(res.data.profile);
+        setFullName(res.data.profile.full_name)
+        setFollowers(res.data.profile.follow_number)
+        setAvatar(res.data.profile.avatar)
+      })
+    }, [])
+    return (
+      <>
+        <div className='mx-5 mt-3 p-3 posts text-white rounded'>
+          <p className='mb-5'>Email: {profile.email}</p>
+          <p className='mb-5'>BirthDay: {profile.birth}</p>
+          <p className=''>Phone: {profile.mobile}</p>
+        </div>
+      </>
+    )
+  }
+
+
 
   function RenderPost() {
     const [newsfeed, setNewsfeed] = useState([]);
-    let url = "https://eaebe.f4koin.cyou/api/getNewfeed"
-    // GetAPIToken(url).then(res => {
-    //   setNewsfeed(res.data.returnPost.slice())
-    //   console.log(res);
-    // })
     useEffect(() => {
-      let url = "https://eaebe.f4koin.cyou/api/getNewfeed"
+      let url = "https://eaebe.f4koin.cyou/api/getMyPost"
       GetAPIToken(url).then(res => {
         setNewsfeed(res.data.returnPost.slice())
       })
@@ -39,7 +52,7 @@ function App(props) {
 
             {/* Avatar */}
             <div className='d-flex align-items-center mt-2'>
-              <img src={contact3} alt="" className='user__avt' />
+              <img src={item.avatar} alt="" className='user__avt' />
               <div className=''>
                 <p className='text-white fw-bold'>{item.full_name}</p>
                 <p className='text-white fw-bold'>{item.post_created_at}</p>
@@ -84,13 +97,6 @@ function App(props) {
                   )
                 }
               )}
-              {/* <div className='d-flex align-items-center mb-3'>
-                <img src={contact3} alt="" className='user__avt' />
-                <div className='single-comment ms-2 p-3 rounded-4'>
-                  <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                  <p className='text-white'>100 like trồng cây</p>
-                </div>
-              </div> */}
             </div>
             {/* Hết comment */}
           </div>
@@ -104,7 +110,7 @@ function App(props) {
       <>
         <div className='d-flex align-items-center rounded justify-content-evenly'>
           <div className='d-flex align-items-center'>
-            <img src={avatar} alt="" className='profile__avt' />
+            <img src={avatar} alt="" className='profile__avt rounded-circle' />
             <div className=''>
               <p className='text-white fw-bold'>{fullName}</p>
               <p className='text-white fw-bold'>{followers} followers</p>
@@ -114,66 +120,16 @@ function App(props) {
           <p className='text-white'>Kẻ Hủy Diệt Rác</p>
         </div>
         <div className='d-flex main__profile'>
-          <div className="col-5">
-            <div className='mx-5 mt-3 p-3 posts text-white rounded'>
+          <div className="col-3">
+            <RenderProfile></RenderProfile>
+            {/* <div className='mx-5 mt-3 p-3 posts text-white rounded'>
               <p className='mb-5'>Email: {profile.email}</p>
               <p className='mb-5'>BirthDay: {profile.birth}</p>
               <p className=''>Phone: {profile.phone}</p>
-            </div>
+            </div> */}
           </div>
           <div className="col">
-            <div className='m-3 p-4 rounded posts'>
-              <div className='d-flex align-items-center mt-2'>
-                <img src={contact3} alt="" className='user__avt' />
-                <div className=''>
-                  <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                  <p className='text-white fw-bold'>2 giờ trước</p>
-                </div>
-              </div>
-              <p className='text-white fs-5 mt-1 mb-3'>Lorem ip sum dolor sit, amet consectetur adipisicing elit. Tempore, cupiditate eos sapiente sint corrupti magni voluptatem? Nostrum</p>
-              <img src={postPic} alt="" />
-              <div className='d-flex align-items-center border-bottom'>
-                <p className='fw-bold like__number fs-4 mt-2 pb-2 posts__info'> <img src={star} alt="" className='me-2' /> 100</p>
-              </div>
-              <div className='d-flex justify-content-between border-bottom'>
-                <p className='d-flex align-items-center fw-bold like__number fs-4 my-2 p-2 rounded posts__btn'> <img src={star} alt="" className='me-2' /> Like</p>
-                <p className='d-flex align-items-center fw-bold like__number fs-4 my-2 p-2 rounded posts__btn'> <img src={comment} alt="" className='me-2' /> Bình luận</p>
-                <p className='d-flex align-items-center fw-bold like__number fs-4 my-2 p-2 rounded posts__btn'> <img src={share} alt="" className='me-2' /> Chia sẻ</p>
-                <div className='d-flex align-items-center'>
-                  <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2 posts__info me-3'>100 bình luận</p>
-                  <p className='d-flex align-items-center fw-bold like__number fs-4 mt-2 pb-2 posts__info '>300 chia sẻ</p>
-                </div>
-              </div>
-              {/* Phần comment */}
-              <div className='comment-post mt-3'>
-                <div className='d-flex align-items-center'>
-                  <img src={contact3} alt="" className='user__avt' />
-                  <input type="text" name="" id="comment" className='col form-control rounded-pill' />
-                </div>
-                <div className='d-flex align-items-center mb-3'>
-                  <img src={contact3} alt="" className='user__avt' />
-                  <div className='single-comment ms-2 p-3 rounded-4'>
-                    <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                    <p className='text-white'>100 like trồng cây</p>
-                  </div>
-                </div>
-                <div className='d-flex align-items-center mb-3'>
-                  <img src={contact3} alt="" className='user__avt' />
-                  <div className='single-comment ms-2 p-3 rounded-4'>
-                    <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                    <p className='text-white'>100 like trồng cây</p>
-                  </div>
-                </div>
-                <div className='d-flex align-items-center mb-3'>
-                  <img src={contact3} alt="" className='user__avt' />
-                  <div className='single-comment ms-2 p-3 rounded-4'>
-                    <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                    <p className='text-white'>100 like trồng cây</p>
-                  </div>
-                </div>
-              </div>
-              {/* Hết comment */}
-            </div>
+            <RenderPost></RenderPost>
           </div>
         </div>
       </>
