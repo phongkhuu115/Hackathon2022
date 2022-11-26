@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/LandingSection1.css'
+import '../../styles/LandingSection1.css'
+
 
 function App(props) {
   const [state, setState] = useState('');

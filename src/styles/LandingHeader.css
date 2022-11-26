@@ -31,3 +31,13 @@
   width: 35px;
   cursor: pointer;
 }
+
+.show {
+  display: none;
+}
+
+.log-menu {
+ position: absolute;
+ top: 20px;
+ right: 60px; 
+}

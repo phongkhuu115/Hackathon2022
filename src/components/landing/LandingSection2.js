@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/LandingSection2.css'
-import Interact from '../assets/Interaction.png'
-import Point from '../assets/Point.png'
-import Water from '../assets/Water.png'
+import '../../styles/LandingSection2.css'
+import Interact from '../../assets/Interaction.png'
+import Point from '../../assets/Point.png'
+import Water from '../../assets/Water.png'
 
 function LandingSection2(props) {
   const [state, setState] = useState('');

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/LandingSection3.css'
-import contact1 from '../assets/Phong.png'
-import contact2 from '../assets/Tai.png'
-import contact3 from '../assets/NA.png'
-import contact4 from '../assets/DA.png'
+import '../../styles/LandingSection3.css'
+import contact1 from '../../assets/Phong.png'
+import contact2 from '../../assets/Tai.png'
+import contact3 from '../../assets/NA.png'
+import contact4 from '../../assets/DA.png'
+
 
 function LandingSection3(props) {
   const [state, setState] = useState('');

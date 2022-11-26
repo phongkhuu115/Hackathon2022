@@ -1,0 +1,18 @@
+.background {
+  background-image: url(../assets/Background.png);
+  height: 925px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login__form {
+  height: 700px;
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  right: 12%;
+  z-index: 999;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border-radius: 50px;
+}
