@@ -76,6 +76,7 @@ class PostController extends Controller
                 'post_created_at' => $post->create_at,
                 'post_updated_at' => $post->update_at,
                 'post_of_user' => $post->user_id,
+                'name_of_user_post_this_post' => DB::table('user')->where('id', $post->user_id)->first()->full_name,
                 'like' => $post->like,
                 'share' => $post->share,
                 'comment_count' => DB::table('comment')->where('post_id', $post->id)->count(),

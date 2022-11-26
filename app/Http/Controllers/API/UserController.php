@@ -138,18 +138,14 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         try {
-
+            $updateData = [];
+            foreach ($request->all() as $key => $value) {
+                if ($key != 'userID') {
+                    $updateData[$key] = $value;
+                }
+            }
             return response()->json([
-                'status' => User::where('userID', User::find($request->username)->userID)->update([
-                    'userName' => $request->username,
-                    'userFullName' => $request->userFullName,
-                    'userEmail' => $request->userEmail,
-                    'password' =>  bcrypt($request->password),
-                    'userTelephone' => $request->userTelephone,
-                    'userAddress' => $request->userAddress,
-                    'userAvatar' => $request->userAvatar,
-                    'userStatus' => $request->userStatus,
-                ])    ?  'success' : 'fail, user not found',
+                'status' => User::where('userID', User::find($request->username)->userID)->update([])    ?  'success' : 'fail, user not found',
                 'user updated' => User::where('username', $request->username)->get(),
             ], 200);
         } catch (\Throwable $th) {
