@@ -22,25 +22,25 @@ function LandingSection3(props) {
           <img src={contact1} alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Minh Phong</p>
           <p className='fs-3'>University of Infomation and Technology - VNUHCM
-            MMTT2020</p>
+           <br /> MMTT2020</p>
         </div>
         <div className="col d-inline-block text-center">
           <img src={contact2} alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Anh Tài</p>
           <p className='fs-3'>University of Infomation and Technology - VNUHCM
-            MMTT2020</p>
+          <br />   MMTT2020</p>
         </div>
         <div className="col d-inline-block text-center">
           <img src={contact3} alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Nhật Anh</p>
           <p className='fs-3'>University of Infomation and Technology - VNUHCM
-            MMTT2020</p>
+           <br /> MMTT2020</p>
         </div>
         <div className="col d-inline-block text-center">
           <img src={contact4} alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Đức Anh</p>
           <p className='fs-3'>University of Infomation and Technology - VNUHCM
-            MMTT2020</p>
+            <br /> MMTT2020</p>
         </div>
       </section>
     </>

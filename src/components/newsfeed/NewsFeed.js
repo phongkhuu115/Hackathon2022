@@ -18,7 +18,7 @@ import '../../styles/Modal.css'
 function NewsFeed(props) {
 
 
-  function handleQuest(id,name, desc, reward, type) {
+  function handleQuest(id, name, desc, reward, type) {
     const quest = document.querySelectorAll('.quest')
     console.log(quest)
     for (let i = 0; i < quest.length; i++) {
@@ -63,7 +63,7 @@ function NewsFeed(props) {
     }, []);
     return mission.map(item => {
       return (
-        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.id,item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
+        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.id, item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
       )
     })
   }
@@ -78,7 +78,7 @@ function NewsFeed(props) {
     }, []);
     return mission.map(item => {
       return (
-        <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={() => handleQuest(item.id,item.mission_name, item.mission_description, item.score_mission, "on-going")}> <img src={question} alt="" className='exclamation me-2' />{item.mission_name} </p>
+        <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={() => handleQuest(item.id, item.mission_name, item.mission_description, item.score_mission, "on-going")}> <img src={question} alt="" className='exclamation me-2' />{item.mission_name} </p>
       )
     })
   }
@@ -134,8 +134,9 @@ function NewsFeed(props) {
             {/* Caption */}
             <p className='text-white fs-5 mt-1 mb-3'>{item.post_caption}</p>
             {/* Hình ảnh */}
-            <img src={item.post_image} alt="" className='' />
-
+            <div className='text-center'>
+              <img src={item.post_image} alt="" className='' />
+            </div>
             {/* Nút chức năng */}
             <div className='d-flex align-items-center border-bottom'>
               <p className='fw-bold like__number fs-4 mt-2 pb-2 posts__info'> <img src={star} alt="" className='me-2 like' /> {item.like}</p>
@@ -153,7 +154,7 @@ function NewsFeed(props) {
             <div className='comment-post mt-3'>
               <div className='d-flex align-items-center'>
                 <img src={contact3} alt="" className='user__avt' />
-                <input type="text" name="" id="comment" className='col form-control rounded-pill' onKeyDown={(e) => Comment(e,item.post_id,e.target.value) } />
+                <input type="text" name="" id="comment" className='col form-control rounded-pill' onKeyDown={(e) => Comment(e, item.post_id, e.target.value)} />
               </div>
               {item.comment.map(
                 i => {
@@ -204,7 +205,7 @@ function NewsFeed(props) {
     }, []);
     return mission.map(item => {
       return (
-        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.id,item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
+        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.id, item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
       )
     })
   }
@@ -266,12 +267,12 @@ function NewsFeed(props) {
     }
   }
 
-  function handleAccept() { 
+  function handleAccept() {
     let url = "https://eaebe.f4koin.cyou/api/acceptMission"
     let body = {
       id: localStorage.getItem('currentMission')
     }
-    PostAPIToken(url, body).then(res => { 
+    PostAPIToken(url, body).then(res => {
       alert(res.data.message)
     })
   }
@@ -280,7 +281,7 @@ function NewsFeed(props) {
     <>
       <div className='newsfeed d-flex align-items-center'>
         <img src={Logo} alt="" className='newsfeed__logo mt-2 ms-3' />
-        <p className='text-white ms-5'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ad vitae quibusdam fugit iure, consectetur eaque doloremque aspernatur praesentium a modi. Assumenda aspernatur facere nisi fugiat officiis facilis veritatis corporis!</p>
+        <p className='text-white ms-5'>Tương tác là điểm mạnh của một website, đặc biệt là website về mạng xã hội. Website này sẽ giúp việc tương tác với nhau sẽ trở nên đơn giản hơn thông qua việc cùng nhau thực hiện những việc làm bảo vệ môi trường.</p>
       </div>
       <div className='newsfeed d-flex position-relative'>
         <div className='col-3'>

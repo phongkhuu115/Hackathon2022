@@ -3,6 +3,7 @@ import '../../styles/Modal.css'
 import exclamation from '../../assets/Question.png'
 import minimize from '../../assets/Minimize.png'
 import contact3 from '../../assets/NA.png'
+import { PostAPIToken } from '../helpers/CallAPI';
 
 function App(props) {
   const [active, setActive] = useState(false);
@@ -18,8 +19,18 @@ function App(props) {
 
   }, []);
 
-  function Posting() { 
-    
+  function Posting(e, content) {
+    if (e.keyCode === 13) {
+      let url = "https://eaebe.f4koin.cyou/api/postPost"
+      let body = {
+        caption: content
+      }
+      PostAPIToken(url, body).then(res => {
+        if (res.status === 200) {
+          alert('Đăng bài thành công')
+        }
+      })
+    }
   }
 
   return (
@@ -36,7 +47,7 @@ function App(props) {
           <p className='text-white'>Nguyễn Đàm Nhật Anh</p>
         </div>
         <div className=' mx-3'>
-          <textarea name="" id="" cols="30" rows="10" className='form-control d-inline-block bg-secondary text-white' placeholder='Bạn muốn đăng gì nè ?'></textarea>
+          <textarea name="" id="" cols="30" rows="10" className='form-control d-inline-block bg-secondary text-white' placeholder='Bạn muốn đăng gì nè ?' onKeyDown={(e) => Posting(e, e.target.value)}></textarea>
         </div>
         <div className='mx-3 text-end'>
           <p className='text-white py-3 px-4 btn btn-secondary d-inline-block me-2'>Đăng</p>
