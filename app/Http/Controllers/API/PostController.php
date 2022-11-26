@@ -12,8 +12,8 @@ class PostController extends Controller
 {
     public function getNewfeed(Request $request)
     {
-        // get all post
-        $posts = post::all();
+        // get all post sort by created_at
+        $posts = post::orderBy('create_at', 'desc')->get();
         $returnPosts = $posts->map(function ($post) {
             $comment = DB::table('comment')->where('post_id', $post->id)->get();
             $returnComment = $comment->map(function ($comment) {
