@@ -19,7 +19,7 @@ function LandingHeader() {
 
   return (
     <>
-      <header className='page__nav d-flex position-relative'>
+      <header className='page__nav d-flex'>
         <img src={mainLogo} alt="" className='page__logo mx-3' />
         <div className='nav__btns'>
           <Link onClick={() => window.location.replace("/")} className='nav-item text-uppercase px-5 d-inline-block h-100 fw-bold text-center'>Home</Link>

@@ -47,5 +47,19 @@
 }
 
 .mission-item:hover {
-  background-color: #242526;
+  background-color: #37383a;
+}
+
+.posts__btn:hover {
+  background-color: #37383a;
+  cursor: pointer;
+}
+
+.posts__info:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.viewall:hover {
+  filter: brightness(120%);
 }

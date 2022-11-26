@@ -20,8 +20,7 @@ function Login(props) {
     }
     PostAPINoToken(url, body).then(res => {
       if (res.data.message === "Login success") {
-        console.log("Success")
-        alert('Đăng nhập thành công')
+        localStorage.setItem('auth', res.data.token)
         navigate('/home', {
         });
       }
