@@ -160,7 +160,14 @@ class PostController extends Controller
             // get userID from personal_access_tokens table
             $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
             $post = post::find($request->post_id);
-            $post->like = $post->like - 1;
+            if($post->like > 0){
+                $post->like = $post->like - 1;
+                $post->save();
+            }
+            else{
+                $post->like = 0;
+                $post->save();
+            }
             $post->save();
             return response()->json([
                 'post' => $post,
