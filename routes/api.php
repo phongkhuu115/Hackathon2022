@@ -5,7 +5,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\MissionController;
-
+use App\Http\Controllers\API\PrizeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('/postLike', [PostController::class, 'postLike']);
     Route::post('/postDislike', [PostController::class, 'postDislike']);
+
+    Route::get('/getPrize', [PrizeController::class, 'getPrize']);
 
 });
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
