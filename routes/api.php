@@ -7,6 +7,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ItemController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\PostController;
 use App\Models\Role;
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +25,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/checkToken', [AuthController::class, 'checkToken']);
 // Route User
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/getfile', [FileController::class, 'getfile']);
-    Route::get('/getuser', [FileController::class, 'getuser']);
-    Route::post('/uploadfile', [FileController::class, 'uploadfile']);
-    Route::post('/updatepublickey', [FileController::class, 'updatepublickey']);
-
+    Route::get('/getNewfeed', [PostController::class, 'getNewfeed']);
 });
-Route::post('/log', [DeviceController::class, 'postLog']);
-
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

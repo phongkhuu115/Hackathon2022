@@ -47,9 +47,10 @@ class AuthController extends Controller
             'username' => $fields['username'],
             'password_hash' => bcrypt($fields['password']),
             'email' => $fields['email'],
-            'fullName' => $fields['full_name'],
+            'full_name' => $fields['full_name'],
             'mobile' => $fields['mobile'],
             'status' => 'online',
+            'created_at' => now(),
         ]);
 
         $token = $user->createToken('myToken')->plainTextToken;
@@ -82,7 +83,7 @@ class AuthController extends Controller
 
         $user = User::where('username', $fields['username'])->first();
 
-        if (!$user || !Hash::check($fields['password'], $user->password)) {
+        if (!$user || !Hash::check($fields['password'], $user->password_hash)) {
             return response([
                 'message' => 'Invalid username or password'
             ], 401);

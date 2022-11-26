@@ -36,6 +36,7 @@ class User extends Authenticatable
         'last_login',
         'score',
         'avatar',
+        'status',
     ];
 
     /**
