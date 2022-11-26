@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -223,6 +222,7 @@ class UserController extends Controller
 
                 $returnInProgressMissions = $InProgressMissions->map(function ($mission) {
                     return [
+                        'id' => $mission->id,
                         'name' => $mission->mission_name,
                         'description' => $mission->mission_description,
                         'score' => $mission->score_mission,
@@ -235,6 +235,7 @@ class UserController extends Controller
                 $missionGeneral = DB::table('mission')->get();
                 $returnMissionGeneral = $missionGeneral->map(function ($mission) {
                     return [
+                        'id' => $mission->id,
                         'name' => $mission->mission_name,
                         'description' => $mission->mission_description,
                         'score' => $mission->score_mission,

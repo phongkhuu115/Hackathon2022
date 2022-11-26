@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\MissionController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/getNewfeed', [PostController::class, 'getNewfeed']);
     Route::get('/getProfile', [UserController::class, 'getProfile']);
     Route::post('/postComment', [PostController::class, 'postComment']);
-    Route::post('/postPost', [PostController::class, 'postPost']);
+    Route::post('/getSpecifyMission', [MissionController::class, 'getSpecifyMission']);
+
 
 });
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

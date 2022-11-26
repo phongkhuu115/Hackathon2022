@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -78,6 +77,7 @@ class PostController extends Controller
                 'post_of_user' => $post->user_id,
                 'like' => $post->like,
                 'share' => $post->share,
+                'comment_count' => DB::table('comment')->where('post_id', $post->id)->count(),
                 'comment' => DB::table('comment')->where('post_id', $post->id)->get(),
             ];
         });
@@ -106,5 +106,22 @@ class PostController extends Controller
     }
     public function postPost(Request $request)
     {
+        // get token from request
+        $token = $request->bearerToken();
+        // hash token
+        $token = hash('sha256', $token);
+        // get userID from personal_access_tokens table
+        $userID = DB::table('personal_access_tokens')->where('token', $token)->first()->tokenable_id;
+        $post = post::create([
+            'user_id' => $userID,
+            'caption' => $request->caption,
+            'image_url' => $request->image_url,
+            'like' => 0,
+            'share' => 0,
+            'create_at' => date('Y-m-d H:i:s'),
+        ]);
+        return response()->json([
+           'post' => $post,
+        ], 200);
     }
 }
