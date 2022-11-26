@@ -1,0 +1,33 @@
+* {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.page__nav {
+  background-color: #44bcde;
+  height: 60px;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+
+.log__logo {
+  width: 35px;
+}
+
+.nav-item {
+  line-height: 60px;
+  min-width: 80px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.log__logo-img {
+  width: 35px;
+  cursor: pointer;
+}

@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import LandingHeader from './components/LandingHeader';
+import LandingSection1 from './components/LandingSection1';
+import LandingSection2 from './components/LandingSection2';
+import LandingSection3 from './components/LandingSection3';
+import './index.css';
 import {
   BrowserRouter,
   Routes,
@@ -13,13 +16,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HashRouter>
     <Routes>
-      <Route path='/' element={ <LandingHeader/>}>
-
+      <Route path='/' element={<LandingHeader />}>
+        <Route index element={<><LandingSection1></LandingSection1><LandingSection2></LandingSection2><LandingSection3></LandingSection3></>} />
       </Route>
     </Routes>
   </HashRouter>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
