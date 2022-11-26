@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -18,8 +17,8 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Token is valid',
-                'public_key' => DB::table('users')->where('id', DB::table('personal_access_tokens')->where('token',  hash('sha256', $request->bearerToken()))->first()->tokenable_id)->first()->public_key,
-                'username' => DB::table('users')->where('id', DB::table('personal_access_tokens')->where('token',  hash('sha256', $request->bearerToken()))->first()->tokenable_id)->first()->username,
+                'public_key' => DB::table('user')->where('id', DB::table('personal_access_tokens')->where('token',  hash('sha256', $request->bearerToken()))->first()->tokenable_id)->first()->public_key,
+                'username' => DB::table('user')->where('id', DB::table('personal_access_tokens')->where('token',  hash('sha256', $request->bearerToken()))->first()->tokenable_id)->first()->username,
             ], 200);
         } else {
             return response()->json([
@@ -37,22 +36,25 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $fields = $request->validate([
-            'username' => 'required|string|unique:users,username|min:3',
+            'username' => 'required|string|unique:user,username|min:3',
             'password' => 'required|min:4|confirmed',
-            'name' => 'required|string',
-            'public_key' => 'required|string',
+            'email' => 'required|email|unique:user,email',
+            'full_name' => 'required|string',
+            'mobile' => 'required|string',
         ]);
 
         $user = User::create([
             'username' => $fields['username'],
-            'password' => bcrypt($fields['password']),
-            'name' => $fields['name'],
-            'public_key' => $fields['public_key'],
+            'password_hash' => bcrypt($fields['password']),
+            'email' => $fields['email'],
+            'fullName' => $fields['full_name'],
+            'mobile' => $fields['mobile'],
             'status' => 'online',
         ]);
 
         $token = $user->createToken('myToken')->plainTextToken;
-
+         // remove 2 first character
+        $token = substr($token, 2);
         $response = [
             'user' => $user,
             'token' => $token,
@@ -102,7 +104,7 @@ class AuthController extends Controller
         ];
 
         //update status to online
-        DB::table('users')->where('id', $user->id)->update(['status' => 'online']);
+        DB::table('user')->where('id', $user->id)->update(['status' => 'online']);
         $response = [
             'user' => $userReturnData,
             'token' => $token,
@@ -124,7 +126,7 @@ class AuthController extends Controller
         // delete token
         DB::table('personal_access_tokens')->where('token', $token)->delete();
         // update status to offline
-       DB::table('users')->where('id', $user_id)->update(['status' => 'offline']);
+       DB::table('user')->where('id', $user_id)->update(['status' => 'offline']);
         return [
             'message' => 'User logged out'
         ];
