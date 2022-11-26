@@ -28,12 +28,34 @@ export let GetAPINoToken = async (url) => {
 }
 
 export let GetAPIToken = async (url) => {
-  console.log(GetToken());
   let request = await axios(url, {
     headers: {
       'Authorization': `Bearer ${GetToken()}`,
       'Content-Type': 'application/json',
     },
+  })
+  return request;
+}
+
+export let PostAPINoBody = async (url) => {
+  let request = await axios(url, {
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${GetToken()}`,
+      'Content-Type': 'application/json',
+    },
+  })
+  return request;
+}
+
+export let PostAPIToken = async (url, body) => {
+  let request = await axios(url, {
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${GetToken()}`,
+      'Content-Type': 'application/json',
+    },
+    data: body
   })
   return request;
 }

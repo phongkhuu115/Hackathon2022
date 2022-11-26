@@ -10,7 +10,7 @@ import comment from '../../assets/comment.png'
 import minimize from '../../assets/Minimize.png'
 import '../../styles/NewsFeed.css'
 import { Link } from 'react-router-dom';
-import { GetAPINoToken, GetAPIToken } from '../helpers/CallAPI'
+import { GetAPINoToken, GetAPIToken, PostAPINoBody, PostAPIToken } from '../helpers/CallAPI'
 import Modal from '../newsfeed/DetailModal'
 import Posting from '../newsfeed/PostingModal'
 import '../../styles/Modal.css'
@@ -32,7 +32,7 @@ function NewsFeed(props) {
     else if (type === "challenge") {
       icon = blueQuestion
     }
-    else { 
+    else {
       icon = exclamation
     }
 
@@ -77,9 +77,36 @@ function NewsFeed(props) {
     }, []);
     return mission.map(item => {
       return (
-        <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={() => handleQuest(item.mission_name, item.mission_description, item.score_mission,"on-going")}> <img src={question} alt="" className='exclamation me-2' />{ item.mission_name} </p>
+        <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={() => handleQuest(item.mission_name, item.mission_description, item.score_mission, "on-going")}> <img src={question} alt="" className='exclamation me-2' />{item.mission_name} </p>
       )
     })
+  }
+
+  function Like(id) {
+    let url = "https://eaebe.f4koin.cyou/api/postLike"
+    let body = {
+      post_id: id
+    }
+    PostAPIToken(url, body).then(res => {
+      if (res.status === 200) {
+        alert('Like thành công')
+      }
+    })
+  }
+
+  function Comment(e, id, content) {
+    if (e.keyCode === 13) {
+      let url = "https://eaebe.f4koin.cyou/api/postComment"
+      let body = {
+        post_id: id,
+        content: content
+      }
+      PostAPIToken(url, body).then(res => {
+        if (res.status === 200) {
+          alert('Bình luận thành công')
+        }
+      })
+    }
   }
 
   function RenderPost() {
@@ -97,7 +124,7 @@ function NewsFeed(props) {
 
             {/* Avatar */}
             <div className='d-flex align-items-center mt-2'>
-              <img src={item.avatar} alt="" className='user__avt' />
+              <img src={item.avatar} alt="" className='user__avt rounded-circle' />
               <div className=''>
                 <p className='text-white fw-bold'>{item.full_name}</p>
                 <p className='text-white fw-bold'>{item.post_created_at}</p>
@@ -106,14 +133,14 @@ function NewsFeed(props) {
             {/* Caption */}
             <p className='text-white fs-5 mt-1 mb-3'>{item.post_caption}</p>
             {/* Hình ảnh */}
-            <img src={item.post_image} alt="" />
+            <img src={item.post_image} alt="" className='' />
 
             {/* Nút chức năng */}
             <div className='d-flex align-items-center border-bottom'>
-              <p className='fw-bold like__number fs-4 mt-2 pb-2 posts__info'> <img src={star} alt="" className='me-2' /> {item.like}</p>
+              <p className='fw-bold like__number fs-4 mt-2 pb-2 posts__info'> <img src={star} alt="" className='me-2 like' /> {item.like}</p>
             </div>
             <div className='d-flex justify-content-between border-bottom'>
-              <p className='d-flex align-items-center fw-bold like__number fs-4 my-2 p-2 rounded posts__btn'> <img src={star} alt="" className='me-2' /> Like</p>
+              <p className='d-flex align-items-center fw-bold like__number fs-4 my-2 p-2 rounded posts__btn' onClick={() => Like(item.post_id)}>  <img src={star} alt="" className='me-2' /> Like</p>
               <p className='d-flex align-items-center fw-bold like__number fs-4 my-2 p-2 rounded posts__btn'> <img src={comment} alt="" className='me-2' /> Bình luận</p>
               <p className='d-flex align-items-center fw-bold like__number fs-4 my-2 p-2 rounded posts__btn'> <img src={share} alt="" className='me-2' /> Chia sẻ</p>
               <div className='d-flex align-items-center'>
@@ -125,7 +152,7 @@ function NewsFeed(props) {
             <div className='comment-post mt-3'>
               <div className='d-flex align-items-center'>
                 <img src={contact3} alt="" className='user__avt' />
-                <input type="text" name="" id="comment" className='col form-control rounded-pill' />
+                <input type="text" name="" id="comment" className='col form-control rounded-pill' onKeyDown={(e) => Comment(e,item.post_id,e.target.value) } />
               </div>
               {item.comment.map(
                 i => {
@@ -150,11 +177,91 @@ function NewsFeed(props) {
     })
   }
 
+  function MinimizeAward() {
+    const quest = document.querySelectorAll('.award')
+    console.log(quest)
+    for (let i = 0; i < quest.length; i++) {
+      quest[i].classList.add('hide')
+    }
+  }
+
   function handlePosting() {
     const posting = document.querySelectorAll('.posting')
 
     for (let i = 0; i < posting.length; i++) {
       posting[i].classList.remove('hide')
+    }
+  }
+
+  function RenderMission() {
+    const [mission, setMission] = useState([]);
+    let url = "https://eaebe.f4koin.cyou/api/get5RandomMission"
+    useEffect(() => {
+      GetAPIToken(url).then(res => {
+        setMission(res.data.mission.slice())
+      })
+    }, []);
+    return mission.map(item => {
+      return (
+        <p className='text-white fw-bold mx-2 p-2 rounded d-flex align-items-center mb-3 rounded mission-item quest-item' onClick={() => handleQuest(item.mission_name, item.mission_description, item.score_mission)}> <img src={exclamation} alt="" className='exclamation me-2' /> {item.mission_name}</p>
+      )
+    })
+  }
+
+  function RenderAward() {
+    const [award, setAward] = useState([]);
+    let url = "https://eaebe.f4koin.cyou/api/getPrize"
+    useEffect(() => {
+      GetAPIToken(url).then(res => {
+        console.log(res)
+        setAward(res.data.prize.slice())
+      })
+    }, []);
+    return award.map(item => {
+      return (
+        <div className='d-flex flex-column'>
+          <img src={item.prize_image} alt="" className='award__pic' />
+          <p className="text-white">{item.prize_name}</p>
+          <p className="text-white">{item.prize_score}</p>
+          <div className='btn btn-primary' onClick={() => handleExchange(item.id, item.prize_score)}>
+          </div>
+        </div>
+      )
+    })
+  }
+
+  function handleExchange(id, point) {
+    if (300 < point) {
+      alert('asdasdas')
+    }
+  }
+
+
+  useEffect(() => {
+    let btns = document.querySelectorAll('.btn-exchange');
+    for (let index = 0; index < btns.length; index++) {
+      console.log(btns[index])
+      if (typeof btns[index].onclick === 'function') {
+        console.log("Has func")
+      }
+    }
+  }, [])
+
+  const [fullname, setFullName] = useState('Admin')
+  const [score, setScore] = useState('50')
+
+  useEffect(() => {
+    let url = "https://eaebe.f4koin.cyou/api/getProfile"
+    GetAPIToken(url).then(res => {
+      setFullName(res.data.profile.full_name)
+      setScore(res.data.profile.score)
+    })
+  }, [])
+
+  function PopupChange() {
+    const exchange = document.querySelectorAll('.award')
+    for (let i = 0; i < exchange.length; i++) {
+      exchange[i].classList.remove('hide')
     }
   }
 
@@ -171,8 +278,8 @@ function NewsFeed(props) {
             <Link to='/profile' className='d-flex align-items-center ms-3 mb-2 mt-3 posts rounded text-decoration-none mission-item'>
               <img src={contact3} alt="" className='user__avt' />
               <div className=''>
-                <p className='text-white fw-bold'>Nguyễn Đàm Nhật Anh</p>
-                <p className='text-white fw-bold'>50 điểm</p>
+                <p className='text-white fw-bold'>{fullname}</p>
+                <p className='text-white fw-bold'>{score} điểm</p>
               </div>
             </Link>
             {/* Đang thực hiện */}
@@ -202,7 +309,7 @@ function NewsFeed(props) {
             <p className='text-white fw-bold my-2'>Thử Thách</p>
             <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={blueQuestion} alt="" className='exclamation me-2' /> Đạp xe 3 tiếng</p>
             <p className='text-white fw-bold mx-2 p-2 d-flex align-items-center mb-3 rounded mission-item' onClick={handleQuest}> <img src={blueQuestion} alt="" className='exclamation me-2' /> Đi bộ 500km</p>
-            <Link className='d-block text-center text-decoration-none text-white fw-bold fs-3 mt-5'>
+            <Link to='/exchange' className='d-block text-center text-decoration-none text-white fw-bold fs-3 mt-5' onClick={PopupChange}>
               Đổi thưởng
             </Link>
           </div>
@@ -235,6 +342,16 @@ function NewsFeed(props) {
             <div className='d-flex justify-content-end'>
               <div className='text-end me-5 py-3 px-4 bg-secondary rounded text-white'>Nhận</div>
             </div>
+          </div>
+        </div>
+        <div className='award darken hide'>
+        </div>
+        <div className='award centered hide rounded-3'>
+          <div className='position-absolute end-0 mini' onClick={MinimizeAward}>
+            <img src={minimize} alt="" />
+          </div>
+          <div className='d-flex'>
+            <RenderAward></RenderAward>
           </div>
         </div>
         <Posting></Posting>

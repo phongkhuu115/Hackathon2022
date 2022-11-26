@@ -8,6 +8,7 @@ import Login from './components/log/Login'
 import Register from './components/log/Register';
 import NewsFeed from './components/newsfeed/NewsFeed';
 import Profile from './components/profile/Profile';
+import Exchange from './components/newsfeed/Exchange'
 import './index.css';
 import {
   BrowserRouter,
@@ -27,6 +28,7 @@ root.render(
       <Route path="/signup" index element={<Register></Register>}></Route>
       <Route path="/home" index element={<NewsFeed></NewsFeed>}></Route>
       <Route path="/profile" index element={<Profile></Profile>}></Route>
+      <Route path="/exchange" index element={<Exchange></Exchange>}></Route>
     </Routes>
   </HashRouter>
 );
