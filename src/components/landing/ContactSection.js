@@ -37,7 +37,7 @@ function LandingSection3(props) {
            <br /> MMTT2020</p>
         </a>
         <a href='#' className="col d-inline-block text-center text-decoration-none">
-          <img src='https://www.facebook.com/messenger_media?attachment_id=767472778248425&message_id=mid.%24gABRJMmICEi2OYHXDI2ILzAHBDSLh&thread_id=5709980275708461' alt="" className='contact__img' />
+          <img src='https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.15752-9/346108989_767472781581758_8190610911816541462_n.png?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=Cw-DVKOgL1EAX9YbPhf&_nc_ht=scontent.fsgn5-8.fna&oh=03_AdQvhrSIJCBq9AwYH1oRPvBp4pxBXCE3-Pd_6wUtD80IgA&oe=648D9E19' alt="" className='contact__img' />
           <p className='fs-1 fw-bold text-success mt-3'>Võ Quốc Đăng</p>
           <p className='fs-3'>University of Infomation and Technology - VNUHCM
             <br /> MMTT2020</p>
