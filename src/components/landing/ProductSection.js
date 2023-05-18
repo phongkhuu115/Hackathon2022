@@ -15,7 +15,7 @@ function LandingSection2(props) {
 
   return (
     <>
-      <section id = 'section2' className='section2 d-flex py-5'>
+      <section id = 'section2' className='section2 d-flex py-5 h-100'>
         <div className="col text-center d-inline-block">
           <img src={Interact} alt=" " className='' />
           <p className='fs-3 mt-3'>Tương tác là điểm mạnh của một website, đặc biệt là website về mạng xã hội. Website này sẽ giúp việc tương tác với nhau sẽ trở nên đơn giản hơn thông qua việc cùng nhau thực hiện những việc làm bảo vệ môi trường.</p>

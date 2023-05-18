@@ -1,10 +1,10 @@
 * {
-  font-family: 'Roboto', sans-serif !important;
+  font-family: 'Raleway', sans-serif !important;
 }
 
 .page__nav {
   background-color: #44bcde;
-  height: 60px;
+  height: 70px;
   position: fixed;
   width: 100%;
   z-index: 999;
@@ -18,13 +18,21 @@
   line-height: 60px;
   min-width: 80px;
   color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
   text-decoration: none;
 }
 
 .nav-item:hover {
-  background-color: #fff;
+  background-color: #ffeedf;
   color: #000;
   cursor: pointer;
+  transition: 0.3s;
+  transition-property: background-color, color;
+}
+
+.nav-item:first-child {
+  margin-left: 20px;
 }
 
 .log__logo-img {
